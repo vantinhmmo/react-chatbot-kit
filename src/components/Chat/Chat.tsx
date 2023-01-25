@@ -191,7 +191,7 @@ const Chat = ({
     };
 
     if (messageObject.widget) {
-      if (state.disableInput){state.disableInput = true}
+      //if (state.disableInput){state.disableInput = true}
       const widget = widgetRegistry.getWidget(chatbotMessageProps.widget, {
         ...state,
         scrollIntoView,

@@ -56,7 +56,7 @@ const ChatbotMessage = ({
             (message: any) => message.id === id
           );
           freshMessages[messageIdx] = message;
-          state.disableInput = false;
+          //state.disableInput = false;
           return { ...state, messages: freshMessages };
         });
       }, defaultDisableTime);
