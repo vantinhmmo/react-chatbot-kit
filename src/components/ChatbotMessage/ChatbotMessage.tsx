@@ -19,17 +19,18 @@ interface IChatbotMessageProps {
   customComponents?: ICustomComponents;
   customStyles: { backgroundColor: string };
 }
+
 const ChatbotMessage = ({
-  message,
-  withAvatar = true,
-  loading,
-  messages,
-  customComponents,
-  setState,
-  customStyles,
-  delay,
-  id,
-}: IChatbotMessageProps) => {
+                          message,
+                          withAvatar = true,
+                          loading,
+                          messages,
+                          customComponents,
+                          setState,
+                          customStyles,
+                          delay,
+                          id
+                        }: IChatbotMessageProps) => {
   const [show, toggleShow] = useState(false);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const ChatbotMessage = ({
             (message: any) => message.id === id
           );
           freshMessages[messageIdx] = message;
-
+          state.disableInput = false;
           return { ...state, messages: freshMessages };
         });
       }, defaultDisableTime);
@@ -87,7 +88,7 @@ const ChatbotMessage = ({
     <ConditionallyRender
       condition={show}
       show={
-        <div className="react-chatbot-kit-chat-bot-message-container">
+        <div className='react-chatbot-kit-chat-bot-message-container'>
           <ConditionallyRender
             condition={withAvatar}
             show={
@@ -103,11 +104,11 @@ const ChatbotMessage = ({
             condition={!!customComponents?.botChatMessage}
             show={callIfExists(customComponents?.botChatMessage, {
               message,
-              loader: <Loader />,
+              loader: <Loader />
             })}
             elseShow={
               <div
-                className="react-chatbot-kit-chat-bot-message"
+                className='react-chatbot-kit-chat-bot-message'
                 style={chatBoxCustomStyles}
               >
                 <ConditionallyRender
@@ -119,7 +120,7 @@ const ChatbotMessage = ({
                   condition={withAvatar}
                   show={
                     <div
-                      className="react-chatbot-kit-chat-bot-message-arrow"
+                      className='react-chatbot-kit-chat-bot-message-arrow'
                       style={arrowCustomStyles}
                     ></div>
                   }
