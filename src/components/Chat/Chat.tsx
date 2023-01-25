@@ -310,6 +310,7 @@ const Chat = ({
             onSubmit={handleSubmit}
           >
             <textarea
+              rows={1}
               disabled={state?.disableInput}
               className="react-chatbot-kit-chat-input"
               placeholder={placeholder}
