@@ -20,7 +20,6 @@ import {
   ICustomStyles,
 } from '../../interfaces/IConfig';
 import { IMessage } from '../../interfaces/IMessages';
-import { string } from 'prop-types';
 
 interface IChatProps {
   setState: React.Dispatch<SetStateAction<any>>;
@@ -136,6 +135,7 @@ const Chat = ({
     };
 
     if (messageObject.widget) {
+      //if (state.disableInput){state.disableInput = true}
       const widget = widgetRegistry.getWidget(messageObject.widget, {
         ...state,
         scrollIntoView,
@@ -191,6 +191,7 @@ const Chat = ({
     };
 
     if (messageObject.widget) {
+      //if (state.disableInput){state.disableInput = true}
       const widget = widgetRegistry.getWidget(chatbotMessageProps.widget, {
         ...state,
         scrollIntoView,
@@ -308,7 +309,8 @@ const Chat = ({
             className="react-chatbot-kit-chat-input-form"
             onSubmit={handleSubmit}
           >
-            <input
+            <textarea
+              disabled={state?.disableInput}
               className="react-chatbot-kit-chat-input"
               placeholder={placeholder}
               value={input}

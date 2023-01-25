@@ -43,6 +43,7 @@
   font-size: 0.85rem;
   border-top: 1px solid #d8d8d8;
   border-bottom-left-radius: 5px;
+  resize: none;
 }
 
 .react-chatbot-kit-chat-input-form {
