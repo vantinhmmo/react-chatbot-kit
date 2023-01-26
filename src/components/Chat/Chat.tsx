@@ -246,11 +246,11 @@ const Chat = ({
           messageParser.parse(input);
         }
       } else {
+        msgToSend.push(input);
         handleValidMessage();
         if (parse) {
           return parse(input);
         }
-        msgToSend.push(input);
       }
     }
   };
@@ -258,6 +258,7 @@ const Chat = ({
   const handleValidMessage = () => {
     setState((state: any) => ({
       ...state,
+      msgToSend: msgToSend,
       messages: [...state.messages, createChatMessage(input, 'user')],
     }));
 
@@ -269,15 +270,15 @@ const Chat = ({
     timerId = setInterval(() => {
       timerRef.current -= 1;
       if (timerRef.current < 0) {
-        console.log('msgToSend.length', msgToSend.length)
-        if (msgToSend.length > 0) {
-          messageParser.parse(msgToSend);
+        console.log('msgToSend.length', state.msgToSend.length)
+        if (state.msgToSend.length > 0) {
+          messageParser.parse(state.msgToSend);
         }
         clearTimer();
       } else {
         setTime(timerRef.current);
       }
-    }, 1000);
+    }, 2000);
     return () => {
       clearTimer();
     };
@@ -347,7 +348,7 @@ const Chat = ({
               value={input}
               onChange={(e) => {
                 setInputValue(e.target.value);
-                if (e.target.value === '' && msgToSend.length > 0){
+                if (e.target.value === '' && state.msgToSend.length > 0){
                   startTimeout();
                 }
               }}
