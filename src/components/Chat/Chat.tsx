@@ -92,6 +92,22 @@ const Chat = ({
     }
   }, [timerId, msgToSend]);
 
+  useEffect(() => {
+    if (state.msgToSend.length > 0){
+      console.log('state.msgToSend', state.msgToSend)
+    }
+  }, [state.msgToSend.length]);
+
+  useEffect(() => {
+    if (msgToSend.length > 0){
+      console.log('msgToSend', msgToSend)
+    }
+  }, [msgToSend]);
+
+  useEffect(() => {
+      console.log('input', input)
+  }, [input]);
+
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
 
