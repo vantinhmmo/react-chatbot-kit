@@ -346,7 +346,7 @@ const Chat = ({
               onChange={(e) => {
                 clearTimer();
                 setInputValue(e.target.value);
-                if (e.target.value === ''){
+                if (e.target.value === '' && messageParser.messages.length > 0){
                   startTimeout();
                 }
               }}
