@@ -88,8 +88,13 @@ const Chat = ({
     if (state.msgToSend.length > 0 && input === ''){
       console.log(`input (${state.msgToSend.length})`, 'startTimeout')
       timerId = setInterval(() => {
-        console.log('setInterval- input', input);
+        console.log(`setInterval - input (${input})`);
+        console.log(`setInterval - msgToSend (${state.msgToSend.length})`, state.msgToSend);
         messageParser.parse(state.msgToSend);
+        setState((state: any) => ({
+          ...state,
+          msgToSend: [],
+        }));
       }, 3000);
       return () => {
         clearTimer();
