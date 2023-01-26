@@ -99,7 +99,16 @@ const Chat = ({
   }, [state.msgToSend.length]);
 
   useEffect(() => {
-      console.log('input', input)
+    console.log('input', input)
+    if (state.msgToSend.length > 0 && input === ''){
+      console.log(`input (${state.msgToSend.length})`, 'startTimeout')
+      timerId = setInterval(() => {
+        console.log('setInterval- input', input);
+      }, 2000);
+      return () => {
+        clearTimer();
+      };
+    }
   }, [input]);
 
   const showAvatar = (messages: any[], index: number) => {
