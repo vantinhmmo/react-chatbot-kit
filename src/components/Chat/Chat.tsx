@@ -86,11 +86,9 @@ const Chat = ({
     setMessageContainerRef(chatContainerRef);
   }, [chatContainerRef.current]);
 
-  /*
   useEffect(() => {
     startTimeout();
   }, [timerId, msgToSend]);
-  */
 
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
@@ -271,6 +269,7 @@ const Chat = ({
   const startTimeout = () => {
     timerId = setInterval(() => {
       timerRef.current -= 1;
+      console.log('timerRef.current', timerRef.current)
       if (timerRef.current < 0) {
         console.log('msgToSend.length', state.msgToSend.length)
         console.log('input', input)
