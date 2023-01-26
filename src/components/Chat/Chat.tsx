@@ -84,6 +84,10 @@ const Chat = ({
   }, [chatContainerRef.current]);
 
   useEffect(() => {
+    console.log('useEffect - state.msgToSend', state.msgToSend)
+  }, [state.msgToSend]);
+
+  useEffect(() => {
     console.log('input', input)
     if (state.msgToSend.length > 0 && input === ''){
       console.log(`input (${state.msgToSend.length})`, 'startTimeout')
@@ -95,6 +99,7 @@ const Chat = ({
           ...state,
           msgToSend: [],
         }));
+        clearTimer();
       }, 3000);
       return () => {
         clearTimer();
