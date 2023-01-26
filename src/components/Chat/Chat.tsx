@@ -63,9 +63,6 @@ const Chat = ({
   const { messages } = state;
   const chatContainerRef = useRef(null);
   const [input, setInputValue] = useState('');
-  const msgToSend: string[] = [];
-  const [time, setTime] = useState(2);
-  const timerRef = React.useRef(time);
   let timerId: NodeJS.Timeout;
 
   const scrollIntoView = () => {
@@ -87,24 +84,13 @@ const Chat = ({
   }, [chatContainerRef.current]);
 
   useEffect(() => {
-    if (state.msgToSend.length > 0){
-      //startTimeout();
-    }
-  }, [timerId, state.msgToSend]);
-
-  useEffect(() => {
-    if (state.msgToSend.length > 0){
-      console.log('state.msgToSend', state.msgToSend)
-    }
-  }, [state.msgToSend.length]);
-
-  useEffect(() => {
     console.log('input', input)
     if (state.msgToSend.length > 0 && input === ''){
       console.log(`input (${state.msgToSend.length})`, 'startTimeout')
       timerId = setInterval(() => {
         console.log('setInterval- input', input);
-      }, 2000);
+        messageParser.parse(state.msgToSend);
+      }, 3000);
       return () => {
         clearTimer();
       };
@@ -286,26 +272,6 @@ const Chat = ({
     setInputValue('');
   };
 
-  const startTimeout = () => {
-    timerId = setInterval(() => {
-      timerRef.current -= 1;
-      console.log('timerRef.current', timerRef.current)
-      if (timerRef.current < 0) {
-        console.log('state.msgToSend.length', state.msgToSend.length)
-        console.log('input', input)
-        if (state.msgToSend.length > 0 && input === "") {
-          messageParser.parse(state.msgToSend);
-        }
-        clearTimer();
-      } else {
-        setTime(timerRef.current);
-      }
-    }, 2000);
-    return () => {
-      clearTimer();
-    };
-  };
-
   const clearTimer = () => {
     clearTimeout(timerId);
   };
@@ -370,9 +336,6 @@ const Chat = ({
               value={input}
               onChange={(e) => {
                 setInputValue(e.target.value);
-                if (e.target.value === '' && msgToSend.length > 0){
-                  startTimeout();
-                }
               }}
             />
             <button
