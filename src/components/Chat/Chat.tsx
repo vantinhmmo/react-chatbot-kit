@@ -62,8 +62,10 @@ const Chat = ({
 }: IChatProps) => {
   const { messages } = state;
   const chatContainerRef = useRef(null);
-
   const [input, setInputValue] = useState('');
+  const [time, setTime] = useState(2);
+  const timerRef = React.useRef(time);
+  let timerId: NodeJS.Timeout;
 
   const scrollIntoView = () => {
     setTimeout(() => {
@@ -71,7 +73,7 @@ const Chat = ({
         chatContainerRef.current.scrollTop =
           chatContainerRef?.current?.scrollHeight;
       }
-    }, 50);
+    }, 100);
   };
 
   useEffect(() => {
@@ -82,6 +84,10 @@ const Chat = ({
   useEffect(() => {
     setMessageContainerRef(chatContainerRef);
   }, [chatContainerRef.current]);
+
+  useEffect(() => {
+    startTimeout();
+  }, [timerId, messageParser.messages]);
 
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
@@ -257,6 +263,28 @@ const Chat = ({
     setInputValue('');
   };
 
+  const startTimeout = () => {
+    timerId = setInterval(() => {
+      timerRef.current -= 1;
+      if (timerRef.current < 0) {
+        console.log('messageParser.messages', messageParser.messages)
+        if (messageParser.messages.length > 0) {
+          messageParser.send();
+        }
+        clearTimer();
+      } else {
+        setTime(timerRef.current);
+      }
+    }, 1000);
+    return () => {
+      clearTimer();
+    };
+  };
+
+  const clearTimer = () => {
+    clearTimeout(timerId);
+  };
+
   const customButtonStyle = { backgroundColor: '' };
   if (customStyles && customStyles.chatButton) {
     customButtonStyle.backgroundColor = customStyles.chatButton.backgroundColor;
@@ -315,7 +343,13 @@ const Chat = ({
               className="react-chatbot-kit-chat-input"
               placeholder={placeholder}
               value={input}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                clearTimer();
+                setInputValue(e.target.value);
+                if (e.target.value === ''){
+                  startTimeout();
+                }
+              }}
             />
             <button
               className="react-chatbot-kit-chat-btn-send"
