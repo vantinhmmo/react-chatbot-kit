@@ -267,12 +267,13 @@ const Chat = ({
   };
 
   const startTimeout = () => {
-    timerId = setInterval(async () => {
+    timerId = setInterval(() => {
       timerRef.current -= 1;
       if (timerRef.current < 0) {
         console.log('msgToSend.length', state.msgToSend.length)
+        console.log('input', input)
         if (state.msgToSend.length > 0) {
-          await messageParser.parse(state.msgToSend);
+          messageParser.parse(state.msgToSend);
         }
         clearTimer();
       } else {
