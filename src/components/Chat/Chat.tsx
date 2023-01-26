@@ -60,7 +60,6 @@ const Chat = ({
   messageHistory,
   actions,
 }: IChatProps) => {
-  console.log('state', state)
   const { messages } = state;
   const chatContainerRef = useRef(null);
 
