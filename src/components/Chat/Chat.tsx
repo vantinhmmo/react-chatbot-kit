@@ -63,6 +63,10 @@ const Chat = ({
   const { messages } = state;
   const chatContainerRef = useRef(null);
   const [input, setInputValue] = useState('');
+  const msgToSend: string[] = [];
+  const [time, setTime] = useState(2);
+  const timerRef = React.useRef(time);
+  let timerId: NodeJS.Timeout;
 
   const scrollIntoView = () => {
     setTimeout(() => {
@@ -81,6 +85,10 @@ const Chat = ({
   useEffect(() => {
     setMessageContainerRef(chatContainerRef);
   }, [chatContainerRef.current]);
+
+  useEffect(() => {
+    startTimeout();
+  }, [timerId, msgToSend]);
 
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
@@ -227,22 +235,23 @@ const Chat = ({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (validator && typeof validator === 'function') {
-      if (validator(input)) {
+    if (input && input !== '' && input.trim().length > 0){
+      e.preventDefault();
+      if (validator && typeof validator === 'function') {
+        if (validator(input)) {
+          handleValidMessage();
+          if (parse) {
+            return parse(input);
+          }
+          messageParser.parse(input);
+        }
+      } else {
         handleValidMessage();
         if (parse) {
           return parse(input);
         }
-        messageParser.parse(input);
+        msgToSend.push(input);
       }
-    } else {
-      handleValidMessage();
-      if (parse) {
-        return parse(input);
-      }
-      messageParser.parse(input);
     }
   };
 
@@ -254,6 +263,28 @@ const Chat = ({
 
     scrollIntoView();
     setInputValue('');
+  };
+
+  const startTimeout = () => {
+    timerId = setInterval(() => {
+      timerRef.current -= 1;
+      if (timerRef.current < 0) {
+        console.log('msgToSend.length', msgToSend.length)
+        if (msgToSend.length > 0) {
+          messageParser.parse(msgToSend);
+        }
+        clearTimer();
+      } else {
+        setTime(timerRef.current);
+      }
+    }, 1000);
+    return () => {
+      clearTimer();
+    };
+  };
+
+  const clearTimer = () => {
+    clearTimeout(timerId);
   };
 
   const customButtonStyle = { backgroundColor: '' };
@@ -316,7 +347,9 @@ const Chat = ({
               value={input}
               onChange={(e) => {
                 setInputValue(e.target.value);
-                messageParser.onInputChange(e.target.value);
+                if (e.target.value === '' && msgToSend.length > 0){
+                  startTimeout();
+                }
               }}
             />
             <button
