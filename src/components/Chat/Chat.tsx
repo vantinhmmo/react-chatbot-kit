@@ -63,9 +63,6 @@ const Chat = ({
   const { messages } = state;
   const chatContainerRef = useRef(null);
   const [input, setInputValue] = useState('');
-  const [time, setTime] = useState(2);
-  const timerRef = React.useRef(time);
-  let timerId: NodeJS.Timeout;
 
   const scrollIntoView = () => {
     setTimeout(() => {
@@ -84,10 +81,6 @@ const Chat = ({
   useEffect(() => {
     setMessageContainerRef(chatContainerRef);
   }, [chatContainerRef.current]);
-
-  useEffect(() => {
-    startTimeout();
-  }, [timerId, messageParser.messages]);
 
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
@@ -249,7 +242,6 @@ const Chat = ({
       if (parse) {
         return parse(input);
       }
-      console.log('messageParser.parse',messageParser.parse)
       messageParser.parse(input);
     }
   };
@@ -262,28 +254,6 @@ const Chat = ({
 
     scrollIntoView();
     setInputValue('');
-  };
-
-  const startTimeout = () => {
-    timerId = setInterval(() => {
-      timerRef.current -= 1;
-      if (timerRef.current < 0) {
-        console.log('messageParser.messages', messageParser.getMessagesLength())
-        if (messageParser.getMessagesLength() > 0) {
-          messageParser.send();
-        }
-        clearTimer();
-      } else {
-        setTime(timerRef.current);
-      }
-    }, 1000);
-    return () => {
-      clearTimer();
-    };
-  };
-
-  const clearTimer = () => {
-    clearTimeout(timerId);
   };
 
   const customButtonStyle = { backgroundColor: '' };
@@ -345,11 +315,8 @@ const Chat = ({
               placeholder={placeholder}
               value={input}
               onChange={(e) => {
-                clearTimer();
                 setInputValue(e.target.value);
-                if (e.target.value === '' && messageParser.getMessagesLength() > 0){
-                  startTimeout();
-                }
+                messageParser.onInputChange(e.target.value);
               }}
             />
             <button
