@@ -249,6 +249,7 @@ const Chat = ({
       if (parse) {
         return parse(input);
       }
+      console.log('messageParser.parse',messageParser.parse)
       messageParser.parse(input);
     }
   };
@@ -267,8 +268,8 @@ const Chat = ({
     timerId = setInterval(() => {
       timerRef.current -= 1;
       if (timerRef.current < 0) {
-        console.log('messageParser.messages', messageParser.messages)
-        if (messageParser.messages.length > 0) {
+        console.log('messageParser.messages', messageParser.getMessagesLength())
+        if (messageParser.getMessagesLength() > 0) {
           messageParser.send();
         }
         clearTimer();
@@ -346,7 +347,7 @@ const Chat = ({
               onChange={(e) => {
                 clearTimer();
                 setInputValue(e.target.value);
-                if (e.target.value === '' && messageParser.messages.length > 0){
+                if (e.target.value === '' && messageParser.getMessagesLength() > 0){
                   startTimeout();
                 }
               }}
