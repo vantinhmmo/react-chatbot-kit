@@ -87,7 +87,9 @@ const Chat = ({
   }, [chatContainerRef.current]);
 
   useEffect(() => {
-    startTimeout();
+    if (msgToSend.length > 0){
+      startTimeout();
+    }
   }, [timerId, msgToSend]);
 
   const showAvatar = (messages: any[], index: number) => {
@@ -272,6 +274,7 @@ const Chat = ({
       console.log('timerRef.current', timerRef.current)
       if (timerRef.current < 0) {
         console.log('msgToSend.length', state.msgToSend.length)
+        console.log('msgToSend.length', msgToSend.length)
         console.log('input', input)
         if (state.msgToSend.length > 0 && input === "") {
           messageParser.parse(state.msgToSend);
@@ -350,7 +353,7 @@ const Chat = ({
               value={input}
               onChange={(e) => {
                 setInputValue(e.target.value);
-                if (e.target.value === '' && state.msgToSend.length > 0){
+                if (e.target.value === '' && msgToSend.length > 0){
                   startTimeout();
                 }
               }}
