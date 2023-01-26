@@ -87,22 +87,16 @@ const Chat = ({
   }, [chatContainerRef.current]);
 
   useEffect(() => {
-    if (msgToSend.length > 0){
-      startTimeout();
+    if (state.msgToSend.length > 0){
+      //startTimeout();
     }
-  }, [timerId, msgToSend]);
+  }, [timerId, state.msgToSend]);
 
   useEffect(() => {
     if (state.msgToSend.length > 0){
       console.log('state.msgToSend', state.msgToSend)
     }
   }, [state.msgToSend.length]);
-
-  useEffect(() => {
-    if (msgToSend.length > 0){
-      console.log('msgToSend', msgToSend)
-    }
-  }, [msgToSend]);
 
   useEffect(() => {
       console.log('input', input)
@@ -264,7 +258,6 @@ const Chat = ({
           messageParser.parse(input);
         }
       } else {
-        msgToSend.push(input);
         handleValidMessage();
         if (parse) {
           return parse(input);
@@ -276,7 +269,7 @@ const Chat = ({
   const handleValidMessage = () => {
     setState((state: any) => ({
       ...state,
-      msgToSend: msgToSend,
+      msgToSend: [...state.msgToSend, input],
       messages: [...state.messages, createChatMessage(input, 'user')],
     }));
 
@@ -289,8 +282,7 @@ const Chat = ({
       timerRef.current -= 1;
       console.log('timerRef.current', timerRef.current)
       if (timerRef.current < 0) {
-        console.log('msgToSend.length', state.msgToSend.length)
-        console.log('msgToSend.length', msgToSend.length)
+        console.log('state.msgToSend.length', state.msgToSend.length)
         console.log('input', input)
         if (state.msgToSend.length > 0 && input === "") {
           messageParser.parse(state.msgToSend);
