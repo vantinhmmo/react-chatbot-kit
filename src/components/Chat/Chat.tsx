@@ -84,16 +84,8 @@ const Chat = ({
   }, [chatContainerRef.current]);
 
   useEffect(() => {
-    console.log('useEffect - state.msgToSend', state.msgToSend)
-  }, [state.msgToSend]);
-
-  useEffect(() => {
-    console.log('input', input)
     if (state.msgToSend.length > 0 && input === ''){
-      console.log(`input (${state.msgToSend.length})`, 'startTimeout')
       timerId = setInterval(() => {
-        console.log(`setInterval - input (${input})`);
-        console.log(`setInterval - msgToSend (${state.msgToSend.length})`, state.msgToSend);
         messageParser.parse(state.msgToSend);
         setState((state: any) => ({
           ...state,
