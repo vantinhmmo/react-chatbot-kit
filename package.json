@@ -1,6 +1,6 @@
 {
   "name": "react-chatbot-kit",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "homepage": "https://fredrikoseberg.github.io/react-chatbot-kit-docs/",
   "description": "Fully customizable chatbot kit for react.",
   "main": "build/index.js",
@@ -9,7 +9,6 @@
     "react-conditionally-render": "^1.0.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
     "build-watch": "webpack --watch",
     "prepare": "yarn run build"
