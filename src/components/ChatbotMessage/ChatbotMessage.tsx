@@ -103,7 +103,8 @@ const ChatbotMessage = ({
             condition={!!customComponents?.botChatMessage}
             show={callIfExists(customComponents?.botChatMessage, {
               message,
-              loader: <Loader />
+              loader: <Loader />,
+              loading
             })}
             elseShow={
               <div

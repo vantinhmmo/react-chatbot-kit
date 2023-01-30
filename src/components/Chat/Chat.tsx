@@ -220,6 +220,7 @@ const Chat = ({
         actions,
       });
 
+      console.log('chatbotMessageProps', chatbotMessageProps.loading);
       return (
         <>
           <ChatbotMessage
