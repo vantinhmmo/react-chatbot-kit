@@ -113,7 +113,6 @@ const Chat = ({
   const renderMessages = () => {
     return messages.map((messageObject: IMessage, index: number) => {
       if (botMessage(messageObject)) {
-        console.log('renderChatbotMessage')
         return (
           <React.Fragment key={messageObject.id}>
             {renderChatbotMessage(messageObject, index)}
@@ -159,7 +158,7 @@ const Chat = ({
         payload: messageObject.payload,
         actions,
       });
-      console.log('renderCustomMessage', messageObject);
+
       return (
         <>
           {customMessage(props)}
@@ -210,7 +209,7 @@ const Chat = ({
       messages,
       actions,
     };
-    console.log('renderChatbotMessage', messageObject);
+
     if (messageObject.widget) {
       //if (state.disableInput){state.disableInput = true}
       const widget = widgetRegistry.getWidget(chatbotMessageProps.widget, {
@@ -220,7 +219,6 @@ const Chat = ({
         actions,
       });
 
-      console.log('chatbotMessageProps', chatbotMessageProps.loading);
       return (
         <>
           <ChatbotMessage
