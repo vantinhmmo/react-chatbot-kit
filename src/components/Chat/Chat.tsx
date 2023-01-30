@@ -92,7 +92,7 @@ const Chat = ({
           msgToSend: [],
         }));
         clearTimer();
-      }, 3000);
+      }, 2250);
       return () => {
         clearTimer();
       };
@@ -113,6 +113,7 @@ const Chat = ({
   const renderMessages = () => {
     return messages.map((messageObject: IMessage, index: number) => {
       if (botMessage(messageObject)) {
+        console.log('renderChatbotMessage')
         return (
           <React.Fragment key={messageObject.id}>
             {renderChatbotMessage(messageObject, index)}
@@ -129,6 +130,7 @@ const Chat = ({
       }
 
       if (customMessage(messageObject, customMessages)) {
+        console.log('renderCustomMessage')
         return (
           <React.Fragment key={messageObject.id}>
             {renderCustomMessage(messageObject)}
