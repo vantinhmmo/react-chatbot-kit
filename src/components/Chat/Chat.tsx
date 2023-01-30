@@ -161,6 +161,10 @@ const Chat = ({
       return (
         <>
           {customMessage(props)}
+          <ConditionallyRender
+            condition={!messageObject.loading}
+            show={widget ? widget : null}
+          />
           {widget ? widget : null}
         </>
       );
@@ -331,6 +335,7 @@ const Chat = ({
             onSubmit={handleSubmit}
           >
             <textarea
+              onKeyPress={(event) => event.code === 'Enter' ? handleSubmit(event) : null}
               rows={1}
               disabled={state?.disableInput}
               className="react-chatbot-kit-chat-input"
