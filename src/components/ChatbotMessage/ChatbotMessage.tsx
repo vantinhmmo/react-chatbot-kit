@@ -39,8 +39,7 @@ const ChatbotMessage = ({
       messages: any[],
       setState: React.Dispatch<React.SetStateAction<any>>
     ) => {
-      let defaultDisableTime = 750;
-      if (delay) defaultDisableTime += delay;
+      let defaultDisableTime = calculateTime(message)
 
       timeoutId = setTimeout(() => {
         const newMessages = [...messages];
@@ -74,6 +73,18 @@ const ChatbotMessage = ({
       toggleShow(true);
     }
   }, [delay]);
+
+  function calculateTime(dialogueLine: string) {
+    const minTime = 1000;
+    const maxTime = 2000;
+    const delayPerCharInMSec = 65;
+    let time = dialogueLine?.length * delayPerCharInMSec;
+    if (time < minTime) {
+      return minTime;
+    }
+    return time > maxTime ? maxTime : time;
+  };
+
 
   const chatBoxCustomStyles = { backgroundColor: '' };
   const arrowCustomStyles = { borderRightColor: '' };
