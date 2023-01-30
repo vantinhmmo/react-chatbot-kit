@@ -158,6 +158,7 @@ const Chat = ({
         payload: messageObject.payload,
         actions,
       });
+      console.log('renderCustomMessage', messageObject);
       return (
         <>
           {customMessage(props)}
@@ -165,7 +166,6 @@ const Chat = ({
             condition={!messageObject.loading}
             show={widget ? widget : null}
           />
-          {widget ? widget : null}
         </>
       );
     }
@@ -218,6 +218,8 @@ const Chat = ({
         payload: messageObject.payload,
         actions,
       });
+
+      console.log('renderChatbotMessage', messageObject);
       return (
         <>
           <ChatbotMessage
