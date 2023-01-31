@@ -326,9 +326,9 @@ const Chat = ({
             }
           />
           <div style={{ color: '#33425F', fontSize: 12, textAlign: 'center', padding: 20 }}>
-            <h4>
+            <h6>
               🔒Your answers are private. We will never share them.
-            </h4>
+            </h6>
           </div>
           {renderMessages()}
           <div style={{ paddingBottom: '15px' }} />
