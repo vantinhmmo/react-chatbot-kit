@@ -341,7 +341,7 @@ const Chat = ({
           >
             <textarea
               onKeyPress={(event) => {
-                if (event.keyCode == 13 && !event.shiftKey) {
+                if (event.code == 'Enter' && !event.shiftKey) {
                   handleSubmit(event)
                 }
               }}
