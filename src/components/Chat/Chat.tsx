@@ -341,8 +341,9 @@ const Chat = ({
           >
             <textarea
               onKeyPress={(event) => {
-                console.log(event);
-                //event.code === 'Enter' ? handleSubmit(event) : null
+                if (event.keyCode == 13 && !event.shiftKey) {
+                  handleSubmit(event)
+                }
               }}
               rows={1}
               disabled={state?.disableInput}
