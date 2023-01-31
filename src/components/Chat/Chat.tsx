@@ -341,7 +341,7 @@ const Chat = ({
           >
             <textarea
               onKeyPress={(event) => {
-                console.log(event.code);
+                console.log(event);
                 //event.code === 'Enter' ? handleSubmit(event) : null
               }}
               rows={1}
