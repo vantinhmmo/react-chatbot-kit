@@ -336,7 +336,10 @@ const Chat = ({
             onSubmit={handleSubmit}
           >
             <textarea
-              onKeyPress={(event) => event.code === 'Enter' ? handleSubmit(event) : null}
+              onKeyPress={(event) => {
+                console.log(event.code);
+                //event.code === 'Enter' ? handleSubmit(event) : null
+              }}
               rows={1}
               disabled={state?.disableInput}
               className="react-chatbot-kit-chat-input"
