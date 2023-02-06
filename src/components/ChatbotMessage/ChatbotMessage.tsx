@@ -108,6 +108,7 @@ const ChatbotMessage = ({
                 elseShow={<ChatbotMessageAvatar />}
               />
             }
+            elseShow={<div className={'react-chatbot-kit-chat-bot-avatar-no-logo'} />}
           />
 
           <ConditionallyRender
