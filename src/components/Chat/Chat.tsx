@@ -100,18 +100,21 @@ const Chat = ({
   }, [input]);
 
   useEffect(() => {
-    if (state?.messages?.length === 0 && state?.conversation?.length > 0) {
-      state.conversation.forEach((c: any) => {
-        if (c.speaker === 'Agent') {
-          actionProvider.createBotResponse(c.message, state.session, state);
+    const loadMsg = async () => {
+      if (state?.messages?.length === 0 && state?.conversation?.length > 0) {
+        for (const c of state.conversation) {
+          if (c.speaker === 'Agent') {
+            await actionProvider.createBotResponse(c.message, state.session, state);
+          }
         }
-      });
+      }
+    };
 
-      setState((state: any) => ({
-        ...state,
-        conversation: []
-      }));
-    }
+    loadMsg().then(() => setState((state: any) => ({
+      ...state,
+      conversation: []
+    })));
+
   }, [state.conversation]);
 
   const showAvatar = (messages: any[], index: number) => {
