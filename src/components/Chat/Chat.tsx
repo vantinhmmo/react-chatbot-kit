@@ -110,10 +110,7 @@ const Chat = ({
       }
     };
 
-    loadMsg().then(() => setState((state: any) => ({
-      ...state,
-      conversation: []
-    })));
+    loadMsg();
 
   }, [state.conversation]);
 
