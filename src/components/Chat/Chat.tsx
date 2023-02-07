@@ -99,6 +99,10 @@ const Chat = ({
     }
   }, [input]);
 
+  useEffect(() => {
+    console.log('chat', state.conversation);
+  }, [state.conversation]);
+
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
 
