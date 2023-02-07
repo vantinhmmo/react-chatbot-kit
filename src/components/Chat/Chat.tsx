@@ -100,10 +100,13 @@ const Chat = ({
   }, [input]);
 
   useEffect(() => {
-    if (state?.messages?.length === 0 && state?.conversation?.length > 0){
-      console.log('chat', state?.messages)
-      console.log('chat', state?.conversation)
-      actionProvider.createBotResponse(state.conversation, state.session, state)
+    if (state?.messages?.length === 0 && state?.conversation?.length > 0) {
+      state.conversation.forEach((c: any) => {
+        if (c.speaker === 'Agent') {
+          actionProvider.createBotResponse(c.message, state.session, state);
+        }
+      });
+
       setState((state: any) => ({
         ...state,
         conversation: []
@@ -354,7 +357,7 @@ const Chat = ({
             <textarea
               onKeyPress={(event) => {
                 if (event.code == 'Enter' && !event.shiftKey) {
-                  handleSubmit(event)
+                  handleSubmit(event);
                 }
               }}
               rows={1}
