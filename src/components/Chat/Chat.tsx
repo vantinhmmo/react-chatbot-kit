@@ -100,7 +100,15 @@ const Chat = ({
   }, [input]);
 
   useEffect(() => {
-    console.log('chat', state.conversation);
+    if (state?.messages?.length === 0 && state?.conversation?.length > 0){
+      console.log('chat', state?.messages)
+      console.log('chat', state?.conversation)
+      actionProvider.createBotResponse(state.conversation, state.session, state)
+      setState((state: any) => ({
+        ...state,
+        conversation: []
+      }));
+    }
   }, [state.conversation]);
 
   const showAvatar = (messages: any[], index: number) => {
