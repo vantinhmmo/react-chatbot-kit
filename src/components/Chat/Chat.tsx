@@ -65,6 +65,12 @@ const Chat = ({
   const [input, setInputValue] = useState('');
   let timerId: NodeJS.Timeout;
 
+  function sleep(delay: number) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, delay);
+    });
+  };
+
   const scrollIntoView = () => {
     setTimeout(() => {
       if (chatContainerRef.current) {
@@ -102,6 +108,7 @@ const Chat = ({
   useEffect(() => {
     const loadMsg = async () => {
       if (state?.messages?.length === 0 && state?.conversation?.length > 0) {
+        await sleep(1500);
         for (const c of state.conversation) {
           if (c.speaker === 'Agent') {
             await actionProvider.createBotResponse(c.message, state.session, state);
