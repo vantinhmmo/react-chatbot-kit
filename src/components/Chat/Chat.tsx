@@ -348,7 +348,8 @@ const Chat = ({
               />
             }
           />
-          <div style={{ color: '#33425F', fontSize: 12, textAlign: 'center', padding: 20 }}>
+          <div
+            className='react-chatbot-kit-chat-message-container-private'>
             <h6>
               🔒Your answers are private. We will never share them.
             </h6>
@@ -359,7 +360,7 @@ const Chat = ({
 
         <div className='react-chatbot-kit-chat-input-container'>
           <div
-            className='react-chatbot-kit-chat-input-form'
+            className={state?.disableInput ? 'react-chatbot-kit-chat-input-form' : 'react-chatbot-kit-chat-input-form-disable'}
           >
             <textarea
               onKeyPress={(event) => {
@@ -369,7 +370,7 @@ const Chat = ({
               }}
               rows={1}
               disabled={state?.disableInput}
-              className='react-chatbot-kit-chat-input'
+              className='react-chatbot-kit-chat-textarea'
               placeholder={placeholder}
               value={input}
               onChange={(e) => {
@@ -382,7 +383,8 @@ const Chat = ({
               style={customButtonStyle}
               onClick={(e) => handleSubmit(e)}
             >
-              <ChatIcon className='react-chatbot-kit-chat-btn-send-icon' />
+              <ChatIcon
+                className={state?.disableInput || input === "" ? 'react-chatbot-kit-chat-btn-send-icon' : 'react-chatbot-kit-chat-btn-send-icon-disable'}/>
             </button>
           </div>
         </div>
