@@ -137,7 +137,8 @@ const Chat = ({
       if (botMessage(messageObject)) {
         return (
           <React.Fragment key={messageObject.id}>
-            {renderChatbotMessage(messageObject, index)}
+            {renderChatbotMessage(messageObject, index)
+            }
           </React.Fragment>
         );
       }
@@ -357,9 +358,8 @@ const Chat = ({
         </div>
 
         <div className='react-chatbot-kit-chat-input-container'>
-          <form
+          <div
             className='react-chatbot-kit-chat-input-form'
-            onSubmit={handleSubmit}
           >
             <textarea
               onKeyPress={(event) => {
@@ -377,12 +377,14 @@ const Chat = ({
               }}
             />
             <button
+              disabled={input === ""}
               className='react-chatbot-kit-chat-btn-send'
               style={customButtonStyle}
+              onClick={(e) => handleSubmit(e)}
             >
               <ChatIcon className='react-chatbot-kit-chat-btn-send-icon' />
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
