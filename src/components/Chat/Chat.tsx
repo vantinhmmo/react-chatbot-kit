@@ -360,7 +360,7 @@ const Chat = ({
 
         <div className='react-chatbot-kit-chat-input-container'>
           <div
-            className={state?.disableInput ? 'react-chatbot-kit-chat-input-form' : 'react-chatbot-kit-chat-input-form-disable'}
+            className={state?.disableInput ? 'react-chatbot-kit-chat-input-form-disable' : 'react-chatbot-kit-chat-input-form'}
           >
             <textarea
               onKeyPress={(event) => {
@@ -384,7 +384,7 @@ const Chat = ({
               onClick={(e) => handleSubmit(e)}
             >
               <ChatIcon
-                className={state?.disableInput || input === "" ? 'react-chatbot-kit-chat-btn-send-icon' : 'react-chatbot-kit-chat-btn-send-icon-disable'}/>
+                className={state?.disableInput || input === "" ? 'react-chatbot-kit-chat-btn-send-icon-disable' : 'react-chatbot-kit-chat-btn-send-icon'}/>
             </button>
           </div>
         </div>
