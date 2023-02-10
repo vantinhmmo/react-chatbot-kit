@@ -370,7 +370,7 @@ const Chat = ({
               }}
               rows={1}
               disabled={state?.disableInput}
-              className='react-chatbot-kit-chat-textarea'
+              className={state?.disableInput ? 'react-chatbot-kit-chat-textarea react-chatbot-kit-chat-textarea-disable' : 'react-chatbot-kit-chat-textarea'}
               placeholder={placeholder}
               value={input}
               onChange={(e) => {
