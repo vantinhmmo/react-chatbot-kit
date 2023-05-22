@@ -94,6 +94,7 @@ const ChatbotMessage = ({
     arrowCustomStyles.borderRightColor = customStyles.backgroundColor;
   }
 
+  console.log('message', message)
   return (
     <ConditionallyRender
       condition={message && show}
