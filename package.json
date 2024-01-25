@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "build-watch": "webpack --watch",
-    "prepare": "yarn run build"
+    "prepare": "yarn run --openssl-legacy-provider build"
   },
   "author": {
     "name": "Fredrik Strand Oseberg",
